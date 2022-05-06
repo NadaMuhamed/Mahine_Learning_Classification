@@ -14,14 +14,17 @@ import re
 import time
 from function import *
 ##########################################################
-data = pd.read_csv('airline-price-prediction.csv')
+data = pd.read_csv('airline-price-classification.csv')
 data.dropna(how='any', inplace=True)
-#data['date'] = data['date'].replace([''],'13-03-2022')
+data['TicketCategory'] = data['TicketCategory'].replace(['cheap'],0)
+data['TicketCategory'] = data['TicketCategory'].replace(['moderate'],1)
+data['TicketCategory'] = data['TicketCategory'].replace(['expensive'],2)
+data['TicketCategory'] = data['TicketCategory'].replace(['very expensive'],3)
 ##########################################################
 X = data.iloc[:, 0:10]
-Y = handel_price(data['price'])
+Y = data.iloc[:, -1]
 X = dictionary_to_columns(X, 'route')
-cols = ('airline', 'ch_code', 'type', 'source', 'destination','TicketCategory')
+cols = ('airline', 'ch_code', 'type', 'source', 'destination')
 X = Feature_Encoder(X, cols)
 X = Date_Converter(X)
 X['time_taken'] = time_taken_to_seconds(X)
@@ -29,8 +32,8 @@ X['stop'] = Stop_Feature(X['stop'])
 X['dep_time'] = converttomin(X['dep_time'])
 X['arr_time'] = converttomin(X['arr_time'])
 airline = X
-airline['price'] = Y
-
+airline['TicketCategory'] = Y
+print(Y)
 ###########################"Model 1"###############################
 print("\n  Model 1  \n")
 
