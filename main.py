@@ -49,12 +49,12 @@ X['type'].fillna(mean(X['type']), inplace = True)
 X['source'].fillna(mean(X['source']), inplace = True)
 X['destination'].fillna(mean(X['destination']), inplace = True)
 Y.fillna(mean(Y), inplace = True)
+X['TicketCategory']=Y
 airline = X
 airline['TicketCategory'] = Y
-
 ###########################"Model 1"###############################
 print("\n  Model 1  \n")
-model1 = LogisticRegression(solver='liblinear', random_state=0)
+
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
 
