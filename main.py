@@ -20,6 +20,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import load_digits
+from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
 ##########################################################
 data = pd.read_csv('airline-price-classification.csv')
 #data.dropna(how='any', inplace=True)
@@ -56,7 +58,7 @@ airline = X
 airline['TicketCategory'] = Y
 ###########################"Model 1"###############################
 print("\n  Model 1  \n")
-x_train1, x_test1, y_train1, y_test1 =train_test_split(X, Y, test_size=0.3, random_state=0)
+x_train1, x_test1, y_train1, y_test1 =train_test_split(X, Y, test_size=0.3, random_state=0,shuffle=True)
 scaler = StandardScaler()
 x_train1 = scaler.fit_transform(x_train1)
 model1 = LogisticRegression(solver='liblinear',
@@ -69,14 +71,15 @@ LogisticRegression(C=0.05, class_weight=None, dual=False, fit_intercept=True,
                    solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
 x_test1 = scaler.transform(x_test1)
 y_pred1 = model1.predict(x_test1)
-print("Training")
+print("Training Model")
 print("regression score",model1.score(x_train1, y_train1))
-print("Testing")
+print("Testing Model")
 print("regression score",model1.score(x_test1, y_test1))
 print('Mean Square Error', metrics.mean_squared_error(y_test1, y_pred1))
 
 confusion_matrix(y_test1, y_pred1)
 cm = confusion_matrix(y_test1, y_pred1)
+print("Report Model 1 LogisticRegression")
 print(classification_report(y_test1, y_pred1))
 
 fig, ax = plt.subplots(figsize=(8, 8))
@@ -94,11 +97,20 @@ for i in range(10):
 """
 ax.set_title("airline price classification")
 fig.tight_layout()
-plt.show()
+#plt.show()
 
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
-
+x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3, random_state=0,shuffle=True)
+y_pred2 = model1.predict(x_test2)
+svm=SVC()
+svm.fit(x_train2,y_train2)
+print("training Model")
+print("regression score",svm.score(x_test2,y_test2))
+print("testing Model")
+print("regression score",svm.score(x_test2,y_test2))
+print("Report Model 2 SVM")
+print(classification_report(y_test2, y_pred2))
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
