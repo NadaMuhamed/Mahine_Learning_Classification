@@ -14,10 +14,12 @@ from sklearn.preprocessing import *
 import re
 import time
 from function import *
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix
 from statistics import mean
 from fractions import Fraction as fr
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_digits
 ##########################################################
 data = pd.read_csv('airline-price-classification.csv')
 #data.dropna(how='any', inplace=True)
@@ -54,6 +56,45 @@ airline = X
 airline['TicketCategory'] = Y
 ###########################"Model 1"###############################
 print("\n  Model 1  \n")
+x_train1, x_test1, y_train1, y_test1 =train_test_split(X, Y, test_size=0.3, random_state=0)
+scaler = StandardScaler()
+x_train1 = scaler.fit_transform(x_train1)
+model1 = LogisticRegression(solver='liblinear',
+                           C=0.05, multi_class='ovr'
+                           ,random_state=0)
+model1.fit(x_train1, y_train1)
+LogisticRegression(C=0.05, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=100,
+                   multi_class='ovr', n_jobs=None, penalty='l2', random_state=0,
+                   solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
+x_test1 = scaler.transform(x_test1)
+y_pred1 = model1.predict(x_test1)
+print("Training")
+print("regression score",model1.score(x_train1, y_train1))
+print("Testing")
+print("regression score",model1.score(x_test1, y_test1))
+print('Mean Square Error', metrics.mean_squared_error(y_test1, y_pred1))
+
+confusion_matrix(y_test1, y_pred1)
+cm = confusion_matrix(y_test1, y_pred1)
+print(classification_report(y_test1, y_pred1))
+
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.imshow(cm)
+ax.grid(False)
+ax.set_xlabel('Predicted outputs', fontsize=20, color='black')
+ax.set_ylabel('Actual outputs', fontsize=20, color='black')
+ax.xaxis.set(ticks=range(10))
+ax.yaxis.set(ticks=range(10))
+ax.set_ylim(9.5, -0.5)
+"""
+for i in range(10):
+    for j in range(10):
+        ax.text(j, i, cm[i, j], ha='center', va='center', color='white')
+"""
+ax.set_title("airline price classification")
+fig.tight_layout()
+plt.show()
 
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
