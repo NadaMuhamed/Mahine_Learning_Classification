@@ -22,6 +22,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import load_digits
 from sklearn.svm import LinearSVC
 from sklearn.svm import SVC
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.datasets import make_classification
 ##########################################################
 data = pd.read_csv('airline-price-classification.csv')
 #data.dropna(how='any', inplace=True)
@@ -102,7 +104,6 @@ fig.tight_layout()
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
 x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3, random_state=0,shuffle=True)
-y_pred2 = model1.predict(x_test2)
 svm = svm.SVC(C=100.0, kernel='poly', degree=10)
 svm.fit(x_train2,y_train2)
 print("training Model")
@@ -110,11 +111,6 @@ print("regression score",svm.score(x_test2,y_test2))
 print("testing Model")
 print("regression score",svm.score(x_test2,y_test2))
 print("Report Model 2 SVM")
+y_pred2 = svm.predict(x_test2)
 print(classification_report(y_test2, y_pred2))
 ###########################"Model 3"###############################
-print("\n  Model 3  \n")
-
-###########################"Model 4"###############################
-print("\n  Model 4  \n")
-
-####################################################################################################################
