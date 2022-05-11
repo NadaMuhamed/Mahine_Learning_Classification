@@ -70,7 +70,9 @@ airline['TicketCategory'] = Y
 ###########################"Model 1"###############################
 print("\n  Model 1  \n")
 
-x_train1, x_test1, y_train1, y_test1 =train_test_split(X, Y, test_size=0.3, random_state=0,shuffle=True)
+x_train1, x_test1, y_train1, y_test1 =train_test_split(X, Y, test_size=0.3,
+                                                       random_state=0,
+                                                       shuffle=True)
 scaler = StandardScaler()
 x_train1 = scaler.fit_transform(x_train1)
 model1 = LogisticRegression(solver='liblinear',
@@ -112,7 +114,9 @@ plt.show()
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
 
-x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3, random_state=1,shuffle=True)
+x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3,
+                                                       random_state=1,
+                                                       shuffle=True)
 print(x_train2.shape)
 svm = svm.SVC(C=100.0, kernel='poly', degree=2)
 print('started training')
@@ -128,7 +132,9 @@ print(classification_report(y_test2, y_pred2))
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
-x_train3, x_test3, y_train3, y_test3 =train_test_split(X, Y, test_size=0.3, random_state=2,shuffle=True)
+x_train3, x_test3, y_train3, y_test3 =train_test_split(X, Y, test_size=0.3,
+                                                       random_state=2,
+                                                       shuffle=True)
 clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=3),
                        algorithm="SAMME",n_estimators=200)
 clf.fit(x_train3, y_train3)
