@@ -113,7 +113,7 @@ fig.tight_layout()
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
 
-x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3, random_state=0,shuffle=True)
+x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3, random_state=1,shuffle=True)
 print(x_train2.shape)
 svm = svm.SVC(C=100.0, kernel='poly', degree=2)
 print('started training')
@@ -125,46 +125,20 @@ print("score",svm.score(x_test2,y_test2))
 print("Report Model 2 SVM")
 y_pred2 = svm.predict(x_test2)
 print(classification_report(y_test2, y_pred2))
+
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
 x_train3, x_test3, y_train3, y_test3 =train_test_split(X, Y, test_size=0.3, random_state=0,shuffle=True)
-"""
-x, y = make_classification(n_samples=1000, n_features=4,
-                           n_informative=2, n_redundant=0,
-                           random_state=0, shuffle=False)
-
-clf = AdaBoostClassifier(n_estimators=100, random_state=0)
-
-clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=1),
-                       algorithm="SAMME", n_estimation=200)
-
-clf=sklearn.ensemble.AdaBoostClassifier(base_estimator=None, *,
-                                        n_estimators=50,
-                                        learning_rate=1.0,
-                                        algorithm='SAMME.R',
-                                        random_state=None)
-                                   
-clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1),
-                         algorithm='SAMME',
-                         n_estimators=100,
-                         random_state=0)
-                         
-clf = DecisionTreeClassifier(max_depth=None,
-                             min_samples_split=2,
-                             random_state=0)                         
-                         
-"""
-
-clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=1),
-                       algorithm="SAMME", n_estimators=200)
+clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=3),
+                       algorithm="SAMME",n_estimators=200)
 clf.fit(x_train3, y_train3)
 AdaBoostClassifier(n_estimators=100, random_state=0)
 print("training Model")
 print("regression score",clf.score(x_train3, y_train3))
 print("testing Model")
 print("regression score",clf.score(x_test3, y_test3))
-print("Report Model 2 SVM")
+print("Report Model 3 DecisionTree")
 y_pred3 = clf.predict(x_test3)
 print(classification_report(y_test3, y_pred3))
 
