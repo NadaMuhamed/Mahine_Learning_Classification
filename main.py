@@ -101,14 +101,14 @@ ax.set_ylabel('Actual outputs', fontsize=20, color='black')
 ax.xaxis.set(ticks=range(10))
 ax.yaxis.set(ticks=range(10))
 ax.set_ylim(9.5, -0.5)
-"""
+# TODO check for loop error
 for i in range(10):
     for j in range(10):
         ax.text(j, i, cm[i, j], ha='center', va='center', color='white')
-"""
+
 ax.set_title("airline price classification")
 fig.tight_layout()
-#plt.show()
+plt.show()
 
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
