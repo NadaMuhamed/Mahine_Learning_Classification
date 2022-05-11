@@ -129,7 +129,7 @@ print(classification_report(y_test2, y_pred2))
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
-x_train3, x_test3, y_train3, y_test3 =train_test_split(X, Y, test_size=0.3, random_state=0,shuffle=True)
+x_train3, x_test3, y_train3, y_test3 =train_test_split(X, Y, test_size=0.3, random_state=2,shuffle=True)
 clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=3),
                        algorithm="SAMME",n_estimators=200)
 clf.fit(x_train3, y_train3)
