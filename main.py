@@ -105,7 +105,6 @@ ax.set_ylim(9.5, -0.5)
 for i in range(10):
     for j in range(10):
         ax.text(j, i, cm[i, j], ha='center', va='center', color='white')
-
 ax.set_title("airline price classification")
 fig.tight_layout()
 plt.show()
