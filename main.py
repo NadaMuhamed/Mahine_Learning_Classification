@@ -64,9 +64,6 @@ X['type'].fillna(mean(X['type']), inplace = True)
 X['source'].fillna(mean(X['source']), inplace = True)
 X['destination'].fillna(mean(X['destination']), inplace = True)
 Y.fillna(mean(Y), inplace = True)
-
-airline = X
-airline['TicketCategory'] = Y
 ###########################"Model 1"###############################
 print("\n  Model 1  \n")
 
@@ -99,7 +96,6 @@ x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3,
                                                        shuffle=True)
 print(x_train2.shape)
 svm = svm.SVC(C=100.0, kernel='poly', degree=2)
-print('started training')
 svm.fit(x_train2,y_train2)
 print("training Model")
 print("regression score",svm.score(x_train2,y_train2))
