@@ -97,7 +97,6 @@ print("\n  Model 2  \n")
 x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3,
                                                        random_state=1,
                                                        shuffle=True)
-print(x_train2.shape)
 svm = svm.SVC(C=100.0, kernel='poly', degree=2)
 svm.fit(x_train2,y_train2)
 print("training Model")
