@@ -1,3 +1,6 @@
+#import pickle
+#To Save Model
+#pickle.dump(model1, open('model1_LogisticRegression.pkl', 'wb'))
 #To Load Model
 """
 loaded_model = pickle.load(open(filename, 'rb'))
