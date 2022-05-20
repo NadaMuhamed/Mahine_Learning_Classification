@@ -99,6 +99,7 @@ print("regression score",model1.score(x_test1, y_test1))
 print("Report Model 1 LogisticRegression")
 print(classification_report(y_test1, y_pred1))
 pickle.dump(model1, open('model1_LogisticRegression.pkl', 'wb'))
+print("--------------------------------------------------------------")
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
 
@@ -115,7 +116,7 @@ print("Report Model 2 SVM")
 y_pred2 = svm.predict(x_test2)
 print(classification_report(y_test2, y_pred2))
 pickle.dump(svm, open('model2_SVM', 'wb'))
-
+print("--------------------------------------------------------------")
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
