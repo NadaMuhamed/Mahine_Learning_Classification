@@ -120,8 +120,8 @@ pickle.dump(svm, open('model2_SVM', 'wb'))
 print("\n  Model 3  \n")
 
 x_train3, x_test3, y_train3, y_test3 =train_test_split(X, Y, test_size=0.3,
-                                                       random_state=88,
-                                                       shuffle=True)
+                                                             random_state=88,
+                                                             shuffle=True)
 clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=9),
                        algorithm="SAMME",n_estimators=200)
 AdaBoostClassifier(n_estimators=100, random_state=0)
