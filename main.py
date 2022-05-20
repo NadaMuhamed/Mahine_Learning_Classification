@@ -7,7 +7,7 @@ from sklearn import datasets
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 from sklearn import metrics
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import r2_score
 from datetime import datetime
 from datetime import timedelta
@@ -73,14 +73,23 @@ x_train1, x_test1, y_train1, y_test1 =train_test_split(X, Y, test_size=0.3,
                                                        shuffle=True)
 scaler = StandardScaler()
 x_train1 = scaler.fit_transform(x_train1)
+"""
+model1=LogisticRegression(C=0.05, class_weight=None, dual=False, fit_intercept=True,
+                          intercept_scaling=1, l1_ratio=None, max_iter=100,
+                          multi_class='ovr', n_jobs=None, penalty='l2', random_state=0,
+                          solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
+
+model1=LogisticRegression(multi_class='multinomial', solver='lbfgs')
+
 model1 = LogisticRegression(solver='liblinear',
                            C=0.05, multi_class='ovr'
                            ,random_state=0)
+"""
+model1=LogisticRegression(C=0.05, class_weight=None, dual=False, fit_intercept=True,
+                         intercept_scaling=1, l1_ratio=None, max_iter=100,
+                         multi_class='ovr', n_jobs=None, penalty='l2', random_state=0,
+                         solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
 model1.fit(x_train1, y_train1)
-LogisticRegression(C=0.05, class_weight=None, dual=False, fit_intercept=True,
-                   intercept_scaling=1, l1_ratio=None, max_iter=100,
-                   multi_class='ovr', n_jobs=None, penalty='l2', random_state=0,
-                   solver='liblinear', tol=0.0001, verbose=0, warm_start=False)
 x_test1 = scaler.transform(x_test1)
 y_pred1 = model1.predict(x_test1)
 print("Training Model")
@@ -90,13 +99,12 @@ print("regression score",model1.score(x_test1, y_test1))
 print("Report Model 1 LogisticRegression")
 print(classification_report(y_test1, y_pred1))
 pickle.dump(model1, open('model1_LogisticRegression.pkl', 'wb'))
-
 ###########################"Model 2"###############################
 print("\n  Model 2  \n")
 
 x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3,
-                                                       random_state=1,
-                                                       shuffle=True)
+                                                             random_state=1,
+                                                             shuffle=True)
 svm = svm.SVC(C=100.0, kernel='poly', degree=2)
 svm.fit(x_train2,y_train2)
 print("training Model")
@@ -107,16 +115,17 @@ print("Report Model 2 SVM")
 y_pred2 = svm.predict(x_test2)
 print(classification_report(y_test2, y_pred2))
 pickle.dump(svm, open('model2_SVM', 'wb'))
+
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
 x_train3, x_test3, y_train3, y_test3 =train_test_split(X, Y, test_size=0.3,
-                                                       random_state=2,
+                                                       random_state=88,
                                                        shuffle=True)
-clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=3),
+clf=AdaBoostClassifier(DecisionTreeClassifier(max_depth=9),
                        algorithm="SAMME",n_estimators=200)
-clf.fit(x_train3, y_train3)
 AdaBoostClassifier(n_estimators=100, random_state=0)
+clf.fit(x_train3, y_train3)
 print("training Model")
 print("regression score",clf.score(x_train3, y_train3))
 print("testing Model")
