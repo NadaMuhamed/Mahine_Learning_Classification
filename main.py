@@ -34,8 +34,6 @@ from sklearn.datasets import make_gaussian_quantiles
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import accuracy_score
 import pickle
-import numpy as np
-import matplotlib.pyplot as plt
 ##########################################################
 data = pd.read_csv('airline-price-classification.csv')
 #data.dropna(how='any', inplace=True)
@@ -86,13 +84,13 @@ x_test1 = scaler.transform(x_test1)
 start_time = time.time()
 y_pred1 = model1.predict(x_test1)
 elapsed_time_testing_1 = time.time() - start_time
-print(f'{elapsed_time_testing_1:.2f}m elapsed during testing')
+print(f'{elapsed_time_testing_1:.2f}s elapsed during testing')
 print("Training Model")
 print("regression score",model1.score(x_train1, y_train1))
 print("Testing Model")
 print("regression score",model1.score(x_test1, y_test1))
-print("Report Model 1 LogisticRegression")
-print(classification_report(y_test1, y_pred1))
+print("Accuracy Model 1 LogisticRegression")
+print(accuracy_score(y_test1, y_pred1))
 accuracy1=accuracy_score(y_test1, y_pred1)
 pickle.dump(model1, open('model1_LogisticRegression.pkl', 'wb'))
 
@@ -115,12 +113,11 @@ print("regression score",svm.score(x_test2,y_test2))
 start_time = time.time()
 y_pred2 = svm.predict(x_test2)
 elapsed_time_testing_2 = time.time() - start_time
-print(f'{elapsed_time_testing_2:.2f}m elapsed during testing')
-print("Report Model 2 SVM")
-print(classification_report(y_test2, y_pred2))
+print(f'{elapsed_time_testing_2:.2f}s elapsed during testing')
+print("Accuracy Model 2 SVM")
+print(accuracy_score(y_test2, y_pred2))
 accuarcy2=accuracy_score(y_test2, y_pred2)
-pickle.dump(svm, open('model2_SVM', 'wb'))
-
+pickle.dump(svm, open('model2_SVM.plk', 'wb'))
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
@@ -141,11 +138,11 @@ print("regression score",clf.score(x_test3, y_test3))
 start_time = time.time()
 y_pred3 = clf.predict(x_test3)
 elapsed_time_testing_3 = time.time() - start_time
-print(f'{elapsed_time_testing_3:.2f}m elapsed during testing')
-print("Report Model 3 DecisionTree")
-print(classification_report(y_test3, y_pred3))
+print(f'{elapsed_time_testing_3:.2f}s elapsed during testing')
+print("Accuracy Model 3 DecisionTree")
+print(accuracy_score(y_test3, y_pred3))
 accuracy3=accuracy_score(y_test3, y_pred3)
-pickle.dump(clf, open('model3_DecisionTreeClassifier.pkl', 'wb'))
+pickle.dump(clf, open('model3_DecisionTreeClassifier.plk', 'wb'))
 ##########################################
 
 ############################plot accuarcy###############################
