@@ -1,9 +1,9 @@
 #import pickle
 #To Save Model
-#pickle.dump(model1, open('model1_LogisticRegression.pickle', 'wb'))
+#pickle.dump(model1, open('model1_LogisticRegression', 'wb'))
 #To Load Model
 """
-loaded_model = pickle.load(open('filename.pickle', 'rb'))
+loaded_model = pickle.load(open('filename.plk', 'rb'))
 result = loaded_model.score(X_test, Y_test)
 print(result)
 """

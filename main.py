@@ -37,34 +37,12 @@ import pickle
 ##########################################################
 data = pd.read_csv('airline-price-classification.csv')
 #data.dropna(how='any', inplace=True)
-data['TicketCategory'] = data['TicketCategory'].replace(['cheap'],0)
-data['TicketCategory'] = data['TicketCategory'].replace(['moderate'],1)
-data['TicketCategory'] = data['TicketCategory'].replace(['expensive'],2)
-data['TicketCategory'] = data['TicketCategory'].replace(['very expensive'],3)
 ##########################################################
 X = data.iloc[:, 0:10]
 Y = data.iloc[:, -1]
 ###################################################################
-X = dictionary_to_columns(X, 'route')
-cols = ('airline', 'ch_code', 'type', 'source', 'destination')
-X = Feature_Encoder(X, cols)
-X = Date_Converter(X)
-X['time_taken'] = time_taken_to_seconds(X)
-X['stop'] = Stop_Feature(X['stop'])
-X['dep_time'] = converttomin(X['dep_time'])
-X['arr_time'] = converttomin(X['arr_time'])
-X['date'].fillna(mean(X['date']), inplace = True)
-X['airline'].fillna(mean(X['airline']), inplace = True)
-X['ch_code'].fillna(mean(X['airline']), inplace = True)
-X['num_code'].fillna(mean(X['num_code']), inplace = True)
-X['dep_time'].fillna(mean(X['dep_time']), inplace = True)
-X['time_taken'].fillna(mean(X['time_taken']), inplace = True)
-X['stop'].fillna(mean(X['airline']), inplace = True)
-X['arr_time'].fillna(mean(X['arr_time']), inplace = True)
-X['type'].fillna(mean(X['type']), inplace = True)
-X['source'].fillna(mean(X['source']), inplace = True)
-X['destination'].fillna(mean(X['destination']), inplace = True)
-Y.fillna(mean(Y), inplace = True)
+X=preprocessing_x(X)
+Y=preprocessing_y(Y)
 ###########################"Model 1"###############################
 print("\n  Model 1  \n")
 
@@ -92,7 +70,7 @@ print("regression score",model1.score(x_test1, y_test1))
 print("Accuracy Model 1 LogisticRegression")
 print(accuracy_score(y_test1, y_pred1))
 accuracy1=accuracy_score(y_test1, y_pred1)
-pickle.dump(model1, open('model1_LogisticRegression.pkl', 'wb'))
+pickle.dump(model1, open('model1_LogisticRegression', 'wb'))
 
 ###########################"Model 2"###############################
 
@@ -101,7 +79,7 @@ print("\n  Model 2  \n")
 x_train2, x_test2, y_train2, y_test2 =train_test_split(X, Y, test_size=0.3,
                                                        random_state=1,
                                                        shuffle=True)
-svm = svm.SVC(C=100.0, kernel='poly', degree=2)
+svm = svm.SVC(C=0.05, kernel='poly', degree=2)
 start_time = time.time()
 svm.fit(x_train2,y_train2)
 elapsed_time_training_2 = time.time() - start_time
@@ -117,7 +95,7 @@ print(f'{elapsed_time_testing_2:.2f}s elapsed during testing')
 print("Accuracy Model 2 SVM")
 print(accuracy_score(y_test2, y_pred2))
 accuarcy2=accuracy_score(y_test2, y_pred2)
-pickle.dump(svm, open('model2_SVM.plk', 'wb'))
+pickle.dump(svm, open('model2_SVM', 'wb'))
 ###########################"Model 3"###############################
 print("\n  Model 3  \n")
 
@@ -142,8 +120,8 @@ print(f'{elapsed_time_testing_3:.2f}s elapsed during testing')
 print("Accuracy Model 3 DecisionTree")
 print(accuracy_score(y_test3, y_pred3))
 accuracy3=accuracy_score(y_test3, y_pred3)
-pickle.dump(clf, open('model3_DecisionTreeClassifier.plk', 'wb'))
-##########################################
+pickle.dump(clf, open('model3_DecisionTreeClassifier', 'wb'))
+##############################################################################################################################
 
 ############################plot accuarcy###############################
 # Dataset generation

@@ -34,10 +34,21 @@ from sklearn.datasets import make_gaussian_quantiles
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import accuracy_score
 import pickle
-
 data = pd.read_csv('airline-test-samples.csv')
-x_test = data.iloc[:, 0:10]
-y_test= data.iloc[:, -1]
-loaded_model = pickle.load(open('model1_LogisticRegression.plk', 'rb'))
-result = loaded_model.score(x_test, y_test)
-print(result)
+##########################################################
+X = data.iloc[:, 0:10]
+Y = data.iloc[:, -1]
+X=preprocessing_x(X)
+Y=preprocessing_y(Y)
+##########################################################
+model1 = pickle.load(open('model1_LogisticRegression.pkl', 'rb'))
+result1 = model1.score(X, Y)
+print("model1_LogisticRegression",result1)
+
+model2 = pickle.load(open('model2_SVM.pkl', 'rb'))
+result2 = model2.score(X, Y)
+print("model2_SVM",result2)
+
+model3 = pickle.load(open('model3_DecisionTreeClassifier.pkl', 'rb'))
+result3 = model3.score(X, Y)
+print("model3_DecisionTreeClassifier",result3)
